@@ -14,12 +14,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ServletComponentScan  //扫描servlet相关组件
 public class TliasWebManagementApplication implements WebMvcConfigurer {
 
+    @Autowired
+    private LoginInterceptor loginInterceptor;
+
     public static void main(String[] args) {
         SpringApplication.run(TliasWebManagementApplication.class, args);
     }
-
-    @Autowired
-    private LoginInterceptor loginInterceptor;
 
     //注册拦截器,参数表示注册器
     @Override
