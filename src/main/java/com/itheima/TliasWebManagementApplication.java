@@ -2,19 +2,20 @@ package com.itheima;
 
 import com.itheima.interceptor.LoginInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
+
 @SpringBootApplication
 @MapperScan("com.itheima.mapper")//加载该包下所有mapper接口，创建代理对象，添加到IOC容器中，相当于每个Mapper接口上写了一个@Mapper注解。
 @ServletComponentScan  //扫描servlet相关组件
 public class TliasWebManagementApplication implements WebMvcConfigurer {
 
-    @Autowired
+    @Resource
     private LoginInterceptor loginInterceptor;
 
     public static void main(String[] args) {
