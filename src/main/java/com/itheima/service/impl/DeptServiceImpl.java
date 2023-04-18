@@ -7,12 +7,10 @@ import com.itheima.pojo.Dept;
 import com.itheima.pojo.DeptLog;
 import com.itheima.service.DeptLogService;
 import com.itheima.service.DeptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileInputStream;
+import javax.annotation.Resource;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,17 +18,18 @@ import java.util.List;
 //@Transactional //表示该类所有的public修饰的方法进行事务管理
 @Service
 public class DeptServiceImpl implements DeptService {
-    @Autowired
+    @Resource
     private DeptMapper deptMapper;
 
-    @Autowired
+    @Resource
     private EmpMapper empMapper;
 
-    @Autowired
+    @Resource
     private DeptLogService deptLogService;
 
     /**
      * 查询所有部门
+     *
      * @return
      */
     @MyTransactional
@@ -43,6 +42,7 @@ public class DeptServiceImpl implements DeptService {
 
     /**
      * 根据id删除部门
+     *
      * @param id 要删除的部门编号
      */
     //@Transactional //表示该方法进行事务管理
@@ -59,15 +59,16 @@ public class DeptServiceImpl implements DeptService {
             empMapper.deleteByDeptId(id);
         } finally {
             //保存日志信息到日志表中
-            DeptLog deptLog=new DeptLog();
+            DeptLog deptLog = new DeptLog();
             deptLog.setCreateTime(LocalDateTime.now());
-            deptLog.setDescription("当前删除id="+id+"的部门信息");
+            deptLog.setDescription("当前删除id=" + id + "的部门信息");
             deptLogService.insert(deptLog);
         }
     }
 
     /**
      * 新增部门
+     *
      * @param dept
      */
     @MyTransactional
@@ -82,6 +83,7 @@ public class DeptServiceImpl implements DeptService {
 
     /**
      * 根据id查询部门
+     *
      * @param id
      * @return
      */
@@ -92,6 +94,7 @@ public class DeptServiceImpl implements DeptService {
 
     /**
      * 修改部门
+     *
      * @param dept
      */
     @Override
